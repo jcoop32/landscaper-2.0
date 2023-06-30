@@ -171,6 +171,7 @@ def menu():
     elif (menuChoice == 'r'):
         reset()
     elif (menuChoice == 'x'):
+        print('User quits')
         user.gameInProgress = False
     else:
         print("command not found")

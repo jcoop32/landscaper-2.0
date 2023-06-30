@@ -30,35 +30,154 @@
 #   if no -> run current cutGrass function
 # and continue for each upgrade once cash has hit certain balance.
 
-# username = input('What is your name? ')
-# print('Hello ' + username + ', Welcome to LandScaper!\n')
-# print('*********************************************')
-# print('You have decided to start a landscaping business in your city.\n')
-# print('The only problem is that you dont have any money, so to get started\n')
-# print('you must use the tools you were born with, your teeth...\n')
-# print('Since this is very weird you have decided to give customers an attractive quote for $1 a lawn!\n')
-# print('As you upgrade your tools, prices per lawn will increase due to higher efficiency.\n')
-# print('Are You ready to get cutting!?\n')
-# print('*********************************************')
+username = input('What is your name? ')
+print('Hello ' + username + ', Welcome to LandScaper!\n')
+print('*********************************************')
+print('You have decided to start a landscaping business in your city.\n')
+print('The only problem is that you dont have any money, so to get started\n')
+print('you must use the tools you were born with, your teeth...\n')
+print('Since this is very weird you have decided to give customers an attractive quote for $1 a lawn!\n')
+print('As you upgrade your tools, prices per lawn will increase due to higher efficiency.\n')
+print('Are You ready to get cutting!?\n')
+print('*********************************************')
 
-gameInProgress = True
+
 class User:
     cash = 0
+    toolProfit = 1
+    hasTeeth = True
+    hasScissors = False
+    hasPushMower = False
+    hasPowerMower = False
+    hasStudents = False
+    hasRobots = False
+    gameInProgress = True
+    
+    # currentTool = cutGrassTeeth()
 
 user = User()
-def cutGrassTeeth():
-    print('You cut a customers lawn with your teeth and made $1!')
-    user.cash = user.cash + 1
-    print('Balance: $' + str(user.cash))
+
+def toolList():
+    print('Tool Upgrade List:\n')
+    print('1. Scissors - $10\n')
+    print('2. Push Mower - $100\n')
+    print('3. Power Mower - $250\n')
+    print('4. Team of Students - $500\n')
+    print('5. Robots - $3000\n')
+    print('****************************')
+    print('Current balance: $' + str(user.cash))
+    print('****************************')
+# def cutGrass():
+#     user.currentTool
+
+def reset():
+    gameReset = input('Are you sure you want to reset the game? (y/n): ')
+    if (gameReset == 'y'):
+        user.cash = 0,
+        user.hasTeeth = True
+        user.hasScissors = False
+        user.hasPushMower = False
+        user.hasPowerMower = False
+        user.hasStudents = False
+        user.hasRobots = False
+        user.toolProfit = 1
+        print('\nGame Reset.\n')
+    elif (gameReset == 'n'):
+      print('\nReset cancelled.\n')
+
+
+def cutGrass():
+    print('You cut a customers lawn with your teeth and made $' + str(user.toolProfit))
+    user.cash = user.cash + user.toolProfit
+    # print('Balance: $' + str(user.cash))
+
+def upgradeTool():
+    toolList()
+    #scissors upgrade
+    if (user.cash > 10 and user.hasTeeth):
+        user_response = input('Do you want to upgrade to scissors? (y/n): ')
+        if (user_response.casefold() == 'y'):
+            user.cash -= 10
+            user.hasTeeth = False
+
+            user.hasScissors = True
+            user.toolProfit = 5 
+        else:
+            print('User does not want to upgrade')
+    #push mower upgrade
+    if (user.cash > 100 and user.hasScissors):
+        user_response = input('Do you want to upgrade to Push mower? (y/n): ')
+        if (user_response.casefold() == 'y'):
+            user.cash -= 100
+            user.hasTeeth = False
+            user.hasScissors = False
+
+            user.hasPushMower = True
+            user.toolProfit = 25
+        else:
+            print('User does not want to upgrade')
+    #power mower upgrade
+    if (user.cash > 250 and user.hasPushMower):
+        user_response = input('Do you want to upgrade to power mower? (y/n): ')
+        if (user_response.casefold() == 'y'):
+            user.cash -= 250
+            user.hasTeeth = False
+            user.hasScissors = False
+            user.hasPushMower = False
+
+            user.hasPowerMower = True
+            user.toolProfit = 50 
+        else:
+            print('User does not want to upgrade')
+    #student upgrade
+    if (user.cash > 500 and user.hasPowerMower):
+        user_response = input('Do you want to hire some students? (y/n): ')
+        if (user_response.casefold() == 'y'):
+            user.cash -= 500
+            user.hasTeeth = False
+            user.hasScissors = False
+            user.hasPushMower = False
+            user.hasPowerMower = False
+            user.hasScissors = False
+
+            user.hasStudents = True
+            user.toolProfit = 100 
+        else:
+            print('User does not want to upgrade')
+    #robot upgrade
+    if (user.cash > 3000 and user.hasStudents):
+        user_response = input('Do you want to upgrade to Robots? (y/n): ')
+        if (user_response.casefold() == 'y'):
+            user.cash -= 3000
+            user.hasTeeth = False
+            user.hasScissors = False
+            user.hasPushMower = False
+            user.hasPowerMower = False
+            user.hasStudents = False
+
+            user.hasRobots = True
+            user.toolProfit = 500 
+        else:
+            print('User does not want to upgrade')
 
 def menu():
     menuChoice = input('Main Menu: (c)ut grass, (u)pgrade tool, check (b)alance, (r)eset, e(x)it: ')
     if (menuChoice == 'c'):
-        cutGrassTeeth()
+        cutGrass()
     elif (menuChoice == 'b'):
         print(user.cash)
+    elif (menuChoice == 'u'):
+        upgradeTool()
+    elif (menuChoice == 'r'):
+        reset()
+    elif (menuChoice == 'x'):
+        user.gameInProgress = False
     else:
         print("command not found")
 
-while (gameInProgress):
+while (user.gameInProgress):
     menu()
+    if (user.cash > 5000):
+        print("User Wins")
+        break
+

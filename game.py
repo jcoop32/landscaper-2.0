@@ -73,7 +73,7 @@ def toolList():
 def reset():
     gameReset = input('Are you sure you want to reset the game? (y/n): ')
     if (gameReset == 'y'):
-        user.cash = 0,
+        user.cash = 0
         user.hasTeeth = True
         user.hasScissors = False
         user.hasPushMower = False

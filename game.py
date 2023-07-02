@@ -84,8 +84,7 @@ def reset():
         print('\nGame Reset.\n')
     elif (gameReset == 'n'):
       print('\nReset cancelled.\n')
-
-
+      
 def cutGrass():
     print('You cut a customers lawn with your teeth and made $' + str(user.toolProfit))
     user.cash = user.cash + user.toolProfit
